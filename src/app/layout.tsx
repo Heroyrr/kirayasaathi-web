@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 // @ts-ignore -- Next.js provides CSS module types through next-env.d.ts
-import './globals.css'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import JsonLd from '@/components/JsonLd'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import { site } from '@/lib/site'
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 
