@@ -1,20 +1,14 @@
-import fs from 'node:fs'
-import path from 'node:path'
 import matter from 'gray-matter'
 import { marked } from 'marked'
+import fs from 'node:fs'
+import path from 'node:path'
+import type { Post } from './post-types'
+
+// keeps old imports like `import { formatDate } from '@/lib/posts'` working in server files
+export { formatDate } from './post-types'
+export type { Post } from './post-types'
 
 const dir = path.join(process.cwd(), 'content', 'blog')
-
-export type Post = {
-  slug: string
-  title: string
-  description: string
-  category: string
-  date: string // YYYY-MM-DD
-  emoji: string
-  keywords: string[]
-  readingMinutes: number
-}
 
 function read(file: string) {
   const raw = fs.readFileSync(path.join(dir, file), 'utf8')
@@ -49,6 +43,3 @@ export function getPost(slug: string): (Post & { html: string }) | null {
   const { post, content } = read(file)
   return { ...post, html: marked.parse(content, { async: false }) as string }
 }
-
-export const formatDate = (iso: string) =>
-  new Date(iso + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
